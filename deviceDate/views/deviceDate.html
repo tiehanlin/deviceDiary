@@ -1,0 +1,107 @@
+<div class="panel panel-clean">
+	<div class="panel-body">
+		<style type="text/css">
+			.myTextarea {
+				width: 100%;
+				border: 0px;
+				outline: none;
+				background-color: transparent;
+			}
+			#textIn table tr td:first-child {
+				width: 150px;
+				text-align: center;
+				line-height: 35px;
+			}
+			
+			#startTimeDiv {
+				position: absolute;
+				right: 20px;
+				top: 7px;
+				color: #d9534f;
+			}
+			.form-horizontal .control-label{text-align: center;}
+			label{color:#444;font-size: 14px;}
+		</style>
+		<div>
+			<h3 class="h3" style="margin-bottom: 10px;">{{name}}设备的维修日志</h3>
+			<table class="table table-bordered table-hover">
+				<tr>
+					<td>维修部件</td>
+					<td>故障原因</td>
+					<td>
+						开始时间
+					</td>
+					<td>
+						维修时长
+					</td>
+					<td>
+						操作记录
+					</td>
+					<td>
+						操作人
+					</td>
+				</tr>
+				<tr ng-repeat='x in diary'>
+					<td>{{x.component}}</td>
+					<td>{{x.cause}}</td>
+					<td>{{x.startTime}}</td>
+					<td>{{x.duration}}</td>
+					<td style="width: 300px;"><textarea class="myTextarea" readonly="readonly">{{x.opeartion}}</textarea></td>
+					<td>{{x.people}}</td>
+				</tr>
+			</table>
+		</div>
+		<button class="btn btn-info" ng-click='open()' id="newAdd" ng-hide='form.show'>新增维修日志</button>
+		<form name="contactForm" class="form-horizontal" id="textIn" ng-show="form.show">
+			<h4>维修记录</h4>
+			<div class="form-group">
+				<label for="name" class="col-sm-2 control-label">设备名称</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" name="name" id="name" ng-model='name' ng-value='name' readonly="readonly">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="component" class="col-sm-2 control-label">维修部件</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" name="component" id="component" ng-model='component' required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="cause" class="col-sm-2 control-label">故障原因</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" name="cause" id="cause" ng-model='cause' required="required">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="time" class="col-sm-2 control-label">开始时间</label>
+				<div class="col-sm-10" ng-class="{'has-error':contactForm.startTime.$error.pattern}">
+					<input type="text" class="form-control" id="time" name="startTime" ng-model='startTime' ng-pattern='regex' ng-value="now"  tooltip-placement="top-left" uib-tooltip="正确的格式2001-07-13 22:08" placeholder="2001-07-13 22:08"/>
+					<div id="startTimeDiv"  ng-show='contactForm.startTime.$error.pattern'>请输入正确的时间</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="duration" class="col-sm-2 control-label">维修时长</label>
+				<div class="col-sm-10" >
+					<input type="text" class="form-control" name="duration" id="duration" ng-model='duration' required="required"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="opeartion" class="col-sm-2 control-label">操作记录</label>
+				<div class="col-sm-10">
+					<textarea type="text" class="form-control" name="opeartion" id="opeartion" ng-model='opeartion' required="required" style="resize: vertical;"/>
+						</textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="people" class="col-sm-2 control-label">操作人</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" name="people" id="people" ng-model='people' required="required"/>
+				</div>
+			</div>
+			<div>
+				<button id="save" class="btn btn-primary" ng-click="save()" ng-disabled="contactForm.$invalid">保存</button>
+				<button type="button" class="btn " ng-click="open()">取消</button>
+			</div>
+		</form>
+	</div>
+</div>

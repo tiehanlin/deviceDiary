@@ -1,0 +1,13 @@
+{
+  "name": "Device Details - Date",
+  "description": "Plugin adds a Date tab to Device Details view",
+  "category": "Examples",
+  "ngModules": [
+    "myapp.deviceDate"
+  ],
+  "js": [
+    "deviceDate.module.js",
+    "deviceDate.config.js",
+    "deviceDate.controller.js"
+  ]
+}

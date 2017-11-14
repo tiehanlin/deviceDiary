@@ -1,0 +1,83 @@
+
+<div class="panel panel-clean">
+  <div class="panel-body">
+  		<style type="text/css">
+  			.myTextarea{width: 100%;border: 0px;outline:none;background-color: transparent;}
+  			#textIn{display: none;}
+  			#textIn table tr td:first-child{width: 150px;text-align: center;line-height: 35px;}
+  			#startTimeDiv{position: absolute;right: 15px;top:15px;color: #FF6666;}
+  		</style>
+  <div>
+  	<h3 class="h3" style="margin-bottom: 10px;">{{name}}设备的维修日志</h3>
+	<table class="table table-bordered table-hover">
+		<tr>
+			<td>维修部件</td>
+			<td>故障原因</td>
+			<td>
+				开始时间
+			</td>
+			<td>
+				维修时长
+			</td>
+			<td>
+				操作记录
+			</td>
+			<td>
+				操作人
+			</td>
+		</tr>
+		<tr ng-repeat='x in diary'>
+			<td>{{x.component}}</td>
+			<td>{{x.cause}}</td>
+			<td>{{x.startTime}}</td>
+			<td>{{x.duration}}</td>
+			<td style="width: 300px;"><textarea class="myTextarea" readonly="readonly">{{x.opeartion}}</textarea></td>
+			<td>{{x.people}}</td>
+		</tr>
+	</table>
+</div>
+		<button class="btn btn-info" ng-click='open()' id="newAdd">新增维修日志</button>
+    <form name="contactForm" id="textIn">
+      <div class="form-group">
+        <label for="contact_name">维修记录</label>
+        <table class="table table-hover table-bordered" >
+        	<tr >
+        		<td>设备名称</td>
+        		<td><input name="name" class="form-control" ng-model='name' readonly="readonly" ng-value='name'/></td>
+        	</tr>
+        	<tr>
+        		<td>维修部件</td>
+        		<td><input name="component" class="form-control" ng-model='component' required="required"/></td>
+        	</tr>
+        	<tr>
+        		<td>故障原因</td>
+        		<td><input name="cause" class="form-control" ng-model='cause' required="required"/></td>
+        	</tr>
+        	<tr>
+        		<td>开始时间</td>
+        		<td style="position: relative;">
+        			<input name="startTime"  placeholder="2001-07-13 22:08" class="form-control has-error" ng-model='startTime' id="time" ng-pattern='regex' ng-value="now" tooltip-placement="top-left" uib-tooltip="正确的格式2001-07-13 22:08" />
+        			<div id="startTimeDiv" ng-show='contactForm.startTime.$error.pattern'>请输入正确的时间</div>
+        		</td>
+        	</tr>
+        	<tr>
+        		<td>维修时长</td>
+        		<td><input name="duration" class="form-control" ng-model='duration' required="required"/></td>
+        	</tr>
+        	<tr>
+        		<td>操作记录</td>
+        		<td><textarea name="opeartion" id="diary_note" ng-model='opeartion' class="form-control" required="required"></textarea></td>
+        	</tr>
+        	<tr>
+        		<td>操作人</td>
+        		<td><input name="people" class="form-control" ng-model='people' required="required"/></td>
+        	</tr>
+        </table>
+      </div>
+      <div>
+        <button  id="save" class="btn btn-primary" ng-click="save()" ng-disabled="contactForm.$invalid" >保存</button>
+        <button class="btn " ng-click="close()" >取消</button>
+      </div>
+    </form>
+  </div>
+</div>
